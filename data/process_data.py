@@ -1,16 +1,56 @@
 import sys
+import pandas as pd
+from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
-    pass
+    """
+    Loads the messages and categories data specified by the filepaths and returns a dataframe
+    merged by id.
+
+        Parameters:
+            messages_filepath (str): path to the messages data
+            categories_filepath (str): path to the categories data
+
+        Returns:
+            merged dataframe (df): merged dataframe containing both messages and categories data
+    """
+    messages = pd.read_csv(messages_filepath)
+    categories = pd.read_csv(categories_filepath)
+
+    return messages.merge(categories, on='id')
 
 
 def clean_data(df):
-    pass
+    """
+    Returns a cleaned dataframe that maps disaster messages to categories as labels.
+
+        Parameters:
+            df (df): an input dataframe that is merged, raw messages and categories data
+
+        Returns:
+            cleaned df (df): a prepped data frame with messages data as an input mapped
+            to a categorical one hot vector label.
+    """
+    row = categories.loc[0]
+    category_colnames = row.apply(lambda x: x[0:-2])
+    categories.columns = category_colnames
+
+    for column in categories:
+        categories[column] = categories[column].apply(lambda x: x[-1]).astype(str)
+        categories[column] = pd.to_numeric(categories[column])
+
+    df.drop('categories', axis=1, inplace=True)
+
+    df = pd.concat([df, categories.reindex(df.index)], sort=False, axis=1)
+    
+    return df.drop_duplicates()
 
 
 def save_data(df, database_filename):
-    pass  
+    """Saves the dataframe df to the database specified by database_filename."""
+    engine = create_engine(database_filename)
+    df.to_sql('DisasterResponse', engine, index=False)
 
 
 def main():
