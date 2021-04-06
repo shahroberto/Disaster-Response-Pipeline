@@ -109,15 +109,15 @@ def evaluate_model(model, X_test, y_test, category_names):
     y_pred = model.predict(X_test)
 
     for i in range(y_test.shape[1]):
-        print(classification_report(y_test[:, i], y_pred[:, i], labels=category_names[i])
-
+        print(classification_report(y_test[:, i], y_pred[:, i], labels=category_names[i]))
+        
 
 def save_model(model, model_filepath):
-    """Save thoe model to a pickle file specified by model_filepath."""
-    with open('model.pkl', 'wb') as file:
-        pickle.dump(model, model_filepath)
+    """Save the model to a pickle file specified by model_filepath."""
+    with open(model_filepath, 'wb') as file:
+        pickle.dump(model, file)
 
-
+              
 def main():
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
