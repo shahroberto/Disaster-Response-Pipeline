@@ -30,8 +30,9 @@ def clean_data(df):
 
         Returns:
             cleaned df (df): a prepped data frame with messages data as an input mapped
-            to a categorical one hot vector label.
+            to a categorical one hot vector label set.
     """
+    categories = df['categories'].str.split(';', expand=True)
     row = categories.loc[0]
     category_colnames = row.apply(lambda x: x[0:-2])
     categories.columns = category_colnames
