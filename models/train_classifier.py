@@ -32,12 +32,12 @@ def load_data(database_filepath):
             y (df): categorical labels that classify messages based on type
             category_names (list): list of message category label names
     """
-    engine = create_engine('sqlite:///DisasterResponse.db')
+    engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql('select * from DisasterResponse', engine)
     X = df.message.values
     y = df.drop(['id', 'message', 'original', 'genre'], axis=1).values
 
-    category_names = y.columns
+    category_names = list(df.drop(['id', 'message', 'original', 'genre'], axis=1).columns)
 
     return X, y, category_names
 
@@ -79,15 +79,19 @@ def build_model():
         ('clf', MultiOutputClassifier(RandomForestClassifier())),
     ])
 
+#     parameters = {
+#         'vect__ngram_range': ((1, 1), (1, 2)),
+#         'vect__max_df': (0.5, 1.0),
+#         'vect__max_features': (None, 10000),
+#         'tfidf__use_idf': (True, False),
+#         'clf__estimator__max_depth': (None, 10, 20),
+#     }
+
     parameters = {
-        'vect__ngram_range': ((1, 1), (1, 2)),
-        'vect__max_df': (0.5, 1.0),
-        'vect__max_features': (None, 10000),
-        'tfidf__use_idf': (True, False),
-        'clf__estimator__max_depth': (None, 10, 20),
+    
     }
 
-    cv = GridSearchCV(pipeline, param_grid=parameters, verbose=1, n_jobs=-1)
+    cv = GridSearchCV(pipeline, param_grid=parameters, verbose=5, n_jobs=-1)
 
     return cv
 
@@ -109,7 +113,8 @@ def evaluate_model(model, X_test, y_test, category_names):
     y_pred = model.predict(X_test)
 
     for i in range(y_test.shape[1]):
-        print(classification_report(y_test[:, i], y_pred[:, i], labels=category_names[i]))
+        print(category_names[i])
+        print(classification_report(y_test[:, i], y_pred[:, i]))
         
 
 def save_model(model, model_filepath):
