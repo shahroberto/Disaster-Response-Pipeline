@@ -43,7 +43,7 @@ def index():
     genre_names = list(genre_counts.index)
     
     category_counts = df.drop(['id', 'message', 'original', 'genre'], axis=1).sum()
-    category_names = list(df.drop(['id', 'message', 'original', 'genre'], axis=1).columns)
+    category_names = list(df.drop(['id', 'message', 'original', 'genre'], axis=1).columns.str.replace('_',' '))
     
     # create visuals
     graphs = [
