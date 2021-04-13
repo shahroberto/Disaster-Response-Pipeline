@@ -71,7 +71,7 @@ def build_model():
         Parameters:
 
         Returns:
-            model (pipeline): gridsearch cv pipeline model that can be used to predict the label of a disaster response message
+            cv (GridSearchCV instance): gridsearch cv pipeline model that can be used to predict the label of a disaster response message
     """
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
@@ -79,18 +79,13 @@ def build_model():
         ('clf', MultiOutputClassifier(RandomForestClassifier())),
     ])
 
-#     parameters = {
-#         'vect__ngram_range': ((1, 1), (1, 2)),
-#         'vect__max_df': (0.5, 1.0),
-#         'vect__max_features': (None, 10000),
-#         'tfidf__use_idf': (True, False),
-#         'clf__estimator__max_depth': (None, 10, 20),
-#     }
-
     parameters = {
-    
+        'vect__ngram_range': ((1, 1), (1, 2)),
+        'vect__max_df': (0.5, 1.0),
+        'vect__max_features': (None, 5000),
+        'clf__estimator__max_depth': (None, 100),
     }
-
+    
     cv = GridSearchCV(pipeline, param_grid=parameters, verbose=5, n_jobs=-1)
 
     return cv
