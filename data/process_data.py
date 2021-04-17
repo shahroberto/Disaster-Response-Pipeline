@@ -40,6 +40,7 @@ def clean_data(df):
     for column in categories:
         categories[column] = categories[column].apply(lambda x: x[-1]).astype(str)
         categories[column] = pd.to_numeric(categories[column])
+        categories.loc[(categories[column] != 0) & (categories[column] != 1), column] = 1   
 
     df.drop('categories', axis=1, inplace=True)
 
