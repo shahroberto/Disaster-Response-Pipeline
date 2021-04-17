@@ -2,19 +2,34 @@
 
 ## Table of Contents
 1. [Project Summary](#summary)
-2. [Instructions](#instructions)
-3. [File Descriptions](#files)
-4. [Acknowledgements](#acknowledgements)
+2. [Installation](#installation)
+3. [Instructions](#instructions)
+4. [File Descriptions](#files)
+5. [Screen Shots](#screenshots)
+6. [Acknowledgements](#acknowledgements)
 
-## Project Summary<a name="motivation"></a>
-
+## Project Summary <a name="summary"></a>
 In this project I'm analyzing disaster data from Figure Eight to build a model for an API that classifies disaster messages.
 
 Using a data set containing real messages that were sent during disaster events I'll be creating a machine learning pipeline to categorize these events so that you can send the messages to an appropriate disaster relief agency.  More specifically, the model is trained on a full pipeline beginning with tokenizing, stemming, and lemmatizing input text and a Multi Output Random Forrest Classifier to correctly identify the disaster response category.  
 
-This project includes a web app where an emergency worker can input a new message and get classification results in several categories. The web app will also display visualizations of the data. 
+This project includes a web app where an emergency worker can input a new message and get classification results in several categories. The web app will also display visualizations of the data.
 
-## Instructions:
+## Installation <a name="installation"></a>
+The code will run using Python versions 3.\* and the following installations:
+- json
+- plotly
+- pandas
+- nltk
+- flask
+- sklearn
+- sqlalchemy
+- sys
+- pickle
+- numpy
+- re
+
+## Instructions <a name="instructions"></a>
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
@@ -48,7 +63,14 @@ This project includes a web app where an emergency worker can input a new messag
 |- classifier.pkl  # saved model 
 
 - README.md
+- LICENSE
+- home_page.png
+- message_category.png
 ```
 
-## Acknowledgements
+## Screen Shots <a name="screenshots"></a>
+![Message Categorization](message_category.png)
+![Home Page](home_page.png)
+
+## Acknowledgements <a name="acknowledgements"></a>
 Figure Eight for the data and to Udacity for the course content.
