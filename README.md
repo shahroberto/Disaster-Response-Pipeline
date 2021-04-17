@@ -4,6 +4,7 @@
 1. [Project Summary](#summary)
 2. [Instructions](#instructions)
 3. [File Descriptions](#files)
+4. [Acknowledgements](#acknowledgements)
 
 ## Project Summary<a name="motivation"></a>
 
@@ -48,3 +49,6 @@ This project includes a web app where an emergency worker can input a new messag
 
 - README.md
 ```
+
+## Acknowledgements
+Figure Eight for the data and to Udacity for the course content.
